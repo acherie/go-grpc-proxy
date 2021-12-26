@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "github.com/acherie/go-grpc-proxy/grpc";
+
+package transfer;
+
+service Transfer {
+  rpc SendData (stream ProxyCmd) returns (stream ProxyCmd) {}
+}
+
+message ProxyCmd {
+  enum Cmd {
+      Connect = 0;
+      Exchange = 1;
+  }
+  
+  Cmd cmd = 1;
+  int32 clientId = 2;
+  bytes data = 3;
+}
